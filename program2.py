@@ -1,7 +1,11 @@
 from fei.ppds import Thread,Mutex
 from collections import Counter
  
-class Shared():   
+class Shared():
+    def __init__(self,size):
+        self.elms = [0]*size
+        self.end = size
+        self.counter =0
     pass
  
  
