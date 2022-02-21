@@ -10,7 +10,7 @@ class Shared():
  
 
 #Incrementation function with mutex only on counter
-def fnc_increment(shared):
+def fnc_increment(shared,mutex):
     while(True):
         if(shared.counter >= shared.end):
             break
@@ -25,8 +25,8 @@ mutex = Mutex()
 shared = Shared(1_000_000)
  
 
-t1 = Thread(fnc_test, shared,mutex)
-t2 = Thread(fnc_test, shared,mutex)
+t1 = Thread(fnc_increment, shared,mutex)
+t2 = Thread(fnc_increment, shared,mutex)
 
 
 t1.join()
