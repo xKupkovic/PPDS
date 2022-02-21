@@ -8,8 +8,16 @@ class Shared():
         self.counter =0
     pass
  
- 
-def fnc_test(shared): 
+
+#Incrementation function with mutex only on counter
+def fnc_increment(shared):
+    while(True):
+        if(shared.counter >= shared.end):
+            break
+        shared.elms[shared.counter] += 1
+        mutex.lock()
+        shared.counter+=1
+        mutex.unlock()  
     pass
  
  
