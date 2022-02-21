@@ -9,7 +9,15 @@ class Shared():
     pass
  
  
-def fnc_test(shared): 
+#Incrementation function with mutex only on element increment
+def fnc_increment(shared,mutex):
+    while(True):
+        if(shared.counter >= shared.end):
+            break
+        mutex.lock()
+        shared.elms[shared.counter] += 1
+        mutex.unlock() 
+        shared.counter+=1 
     pass
  
  
@@ -17,13 +25,12 @@ mutex = Mutex()
 shared = Shared(1_000_000)
  
 
-t1 = Thread(fnc_test, shared,mutex)
-t2 = Thread(fnc_test, shared,mutex)
+t1 = Thread(fnc_increment, shared,mutex)
+t2 = Thread(fnc_increment, shared,mutex)
 
 
 t1.join()
 t2.join()
-
 
 
 c = Counter(shared.elms)
