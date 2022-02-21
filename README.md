@@ -8,4 +8,6 @@ Program 2
 
 This program concurently sets only element. Incrementation of counter is locked, therefore it can only be called by one thread at the time. With this type of lock there are few errors. First one is accessing element that is out of range. Second one is multiple incrementations of element in array. This is due to multiple threads beeing at same counter at once therefore multiple times incrementing same element.
 
+Program 3
 
+This program concurently increments counter. Incrementation of element is happening only on one thread at the same time.  There are also same errors like on previous program. However there difference on how often which one happens. Out of bounds error is not happening more often but multiple of same element incrementations happen rarely.
