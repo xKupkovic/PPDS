@@ -23,15 +23,11 @@ def fnc_increment(shared,mutex):
 mutex = Mutex()
 shared = Shared(1_000_000)
  
-
 t1 = Thread(fnc_increment, shared,mutex)
 t2 = Thread(fnc_increment, shared,mutex)
 
-
 t1.join()
 t2.join()
-
-
 
 c = Counter(shared.elms)
 print(c.most_common())
