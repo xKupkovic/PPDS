@@ -5,15 +5,21 @@ def get_next_fibonacci(i):
     pass
 
 def fibonacci_cycle(thread_id):
-    global t
+    global t,count
+    while(thread_id != count):
+        t.wait()
+        t.signal()
+        pass
+    t.signal()
+    count+=1
     nums.append(get_next_fibonacci(thread_id+2))
     pass
     
-THREADS_NUMBER = 5
+THREADS_NUMBER = 20
 
 t = Semaphore(0)
 
-calculated = 0
+count = 0
 
 nums = []
 
