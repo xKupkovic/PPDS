@@ -33,12 +33,14 @@ def ko(thread_name):
  
  
 def barrier_example(thread_name):
+    global sb
     while True:
         rendezvous(thread_name)
+        sb.wait()
         ko(thread_name)
+        sb.wait()
 
-sb1 = SimpleBarrier(5)
-sb2 = SimpleBarrier(5)
+sb = SimpleBarrier(5)
  
 threads = list()
 for i in range(5):
