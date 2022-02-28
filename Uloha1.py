@@ -13,6 +13,14 @@ class SimpleBarrier:
         pass
  
     def wait(self):
+        self.M.lock()
+        self.C += 1
+        if(self.C==self.N):
+            self.C = 0
+            self.T.signal()
+        self.M.unlock()
+        self.T.wait()
+        self.T.clear()
         pass
  
  
