@@ -10,9 +10,9 @@ def fibonacci_cycle(thread_id):
         t.wait()
         t.signal()
         pass
-    t.signal()
-    count+=1
     nums.append(get_next_fibonacci(thread_id+2))
+    count+=1
+    t.signal()
     pass
     
 THREADS_NUMBER = 20
