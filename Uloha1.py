@@ -29,7 +29,6 @@ def barrier_example(barrier, thread_id):
     ktore vykonavaju nasledovnu funkciu, ktorej argumentom je
     zdielany objekt jednoduchej bariery
     """
-    sleep(randint(1,10)/10)
     print("vlakno %d pred barierou" % thread_id)
     barrier.wait()
     print("vlakno %d po bariere" % thread_id)
@@ -37,6 +36,6 @@ def barrier_example(barrier, thread_id):
  
 sb = SimpleBarrier(5)
 
+threads = [Thread(barrier_example,sb,i) for i in range(5)]
+[t.join() for t in threads]
 
-for i in range(5):
-    t = Thread(barrier_example(sb,i))
