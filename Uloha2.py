@@ -1,3 +1,4 @@
+from time import sleep
 from random import randint
 from fei.ppds import Thread, Mutex, Semaphore
 from fei.ppds import print
@@ -14,11 +15,25 @@ def ko(thread_name):
  
  
 def barrier_example(thread_name):
+    t1 = Semaphore(0)
+    t2 = Semaphore(0)
+    m = Mutex()
+    count_a = 0
+    count_b = 0
+    N = 5
     while True:
-        # ...
         rendezvous(thread_name)
-        # ...
+        
+        m.lock()
+        count_a +=1
+        if(count_a==N):
+            t1.signal()
+        m.unlock()
+        t1.wait()
+        t1.signal()
+        
         ko(thread_name)
+
         # ...
  
  
