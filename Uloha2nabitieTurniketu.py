@@ -15,10 +15,17 @@ def ko(thread_name):
  
  
 def barrier_example(thread_name):
+    global t1,t2,m,count,N
     while True:
         rendezvous(thread_name)
         ko(thread_name)
+        
+t1 = Semaphore(0)
+t2 = Semaphore(1)
+m = Mutex()
+count = 0
 
+N = 5 
  
 threads = list()
 for i in range(5):
