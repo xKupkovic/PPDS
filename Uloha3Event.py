@@ -1,9 +1,6 @@
-from time import sleep
-from random import randint
 from fei.ppds import Mutex,print,Event,Thread
 
 def get_next_fibonacci(i):
-    sleep(randint(1,10)/20)
     return nums[i-2]+nums[i-1]
     pass
 
@@ -13,9 +10,9 @@ def fibonacci_cycle(thread_id):
         t.wait()
         t.signal()
         pass
+    nums.append(get_next_fibonacci(thread_id+2))
     count+=1
     t.signal()
-    nums.append(get_next_fibonacci(thread_id+2))
     pass
     
 THREADS_NUMBER = 5
