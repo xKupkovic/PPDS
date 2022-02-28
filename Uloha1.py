@@ -23,12 +23,16 @@ class SimpleBarrier:
         self.T.clear()
         pass
  
+def before_barrier(thread_id):
+    print("vlakno %d pred barierou" % thread_id)
+def after_barrier(thread_id)
+    print("vlakno %d po bariere" % thread_id)
  
-def barrier_example(barrier, thread_id):
+def barrier_cycle(barrier, thread_id):
     while True:
-        print("vlakno %d pred barierou" % thread_id)
+        before_barrier(thread_id)
         barrier.wait()
-        print("vlakno %d po bariere" % thread_id)
+        after_barrier(thread_id)
         barrier.wait()
  
  
