@@ -6,6 +6,10 @@ from fei.ppds import print
  
 class SimpleBarrier:
     def __init__(self, N):
+        self.N = N
+        self.C = 0
+        self.M = Mutex()
+        self.T = Event()
         pass
  
     def wait(self):
