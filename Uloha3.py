@@ -1,9 +1,14 @@
 from fei.ppds import Mutex,print,Semaphor,Thread
 
-def get_next_fibonacci():
+def get_next_fibonacci(i):
+    global nums
+    return nums[i-2]+nums[i-1]
     pass
 
 def fibonacci_cycle():
+    count = 2
+    while True:
+        
     pass
     
 THREADS_NUMBER = 5
