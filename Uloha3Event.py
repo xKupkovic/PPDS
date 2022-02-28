@@ -1,4 +1,4 @@
-from fei.ppds import Mutex,print,Semaphore,Thread
+from fei.ppds import Mutex,print,Event,Thread
 
 def get_next_fibonacci(i):
     return nums[i-2]+nums[i-1]
@@ -17,7 +17,7 @@ def fibonacci_cycle(thread_id):
     
 THREADS_NUMBER = 20
 
-t = Semaphore(0)
+t = Event()
 
 count = 0
 
