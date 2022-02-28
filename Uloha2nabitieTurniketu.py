@@ -18,10 +18,22 @@ def barrier_example(thread_name):
     global t1,t2,m,count,N
     while True:
         rendezvous(thread_name)
+        m.lock()
+        count+=1
+        if(count == N):
+            t1.signal(N)
+        m.unlock()
+        t1.wait()
         ko(thread_name)
+        m.lock()
+        count-=1
+        if(count == 0):
+            t1.signal(N)
+        m.unlock()
+        t1.wait()
         
 t1 = Semaphore(0)
-t2 = Semaphore(1)
+t2 = Semaphore(0)
 m = Mutex()
 count = 0
 
