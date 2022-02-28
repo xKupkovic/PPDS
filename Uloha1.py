@@ -25,13 +25,11 @@ class SimpleBarrier:
  
  
 def barrier_example(barrier, thread_id):
-    """Predpokladajme, ze nas program vytvara a spusta 5 vlakien,
-    ktore vykonavaju nasledovnu funkciu, ktorej argumentom je
-    zdielany objekt jednoduchej bariery
-    """
-    print("vlakno %d pred barierou" % thread_id)
-    barrier.wait()
-    print("vlakno %d po bariere" % thread_id)
+    while True:
+        print("vlakno %d pred barierou" % thread_id)
+        barrier.wait()
+        print("vlakno %d po bariere" % thread_id)
+        barrier.wait()
  
  
 sb = SimpleBarrier(5)
