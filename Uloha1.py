@@ -25,7 +25,7 @@ class SimpleBarrier:
  
 def before_barrier(thread_id):
     print("vlakno %d pred barierou" % thread_id)
-def after_barrier(thread_id)
+def after_barrier(thread_id):
     print("vlakno %d po bariere" % thread_id)
  
 def barrier_cycle(barrier, thread_id):
@@ -38,6 +38,6 @@ def barrier_cycle(barrier, thread_id):
  
 sb = SimpleBarrier(5)
 
-threads = [Thread(barrier_example,sb,i) for i in range(5)]
+threads = [Thread(barrier_cycle,sb,i) for i in range(5)]
 [t.join() for t in threads]
 
