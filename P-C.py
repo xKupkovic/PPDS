@@ -9,7 +9,7 @@ class Shared:
         self.free = Semaphore(N)
         self.items = Semaphore(0)
 
-def producer():
+def producer(shared):
     while(not shared.finished):
         shared.free.wait()
         shared.mutex.lock()
