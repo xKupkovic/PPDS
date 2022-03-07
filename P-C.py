@@ -8,3 +8,11 @@ class Shared:
         self.mutex = Mutex()
         self.free = Semaphore(N)
         self.items = Semaphore(0)
+
+def producer():
+    pass
+
+def consumer():
+    pass
+
+
