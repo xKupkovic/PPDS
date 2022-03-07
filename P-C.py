@@ -18,7 +18,7 @@ def producer():
         shared.items.signal()
     pass
 
-def consumer():
+def consumer(shared):
     while(not shared.finished):
         shared.items.wait()
         shared.mutex.lock()
