@@ -10,9 +10,8 @@ class Shared:
         self.items = Semaphore(0)
 
 def producer():
+    while(not shared.finished):
         shared.free.wait()
-        if shared.finished:
-            break
         shared.mutex.lock()
         sleep(randint(1, 10) / 100)
         shared.mutex.unlock()
