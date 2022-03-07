@@ -8,12 +8,15 @@ class Shared:
         self.mutex = Mutex()
         self.free = Semaphore(N)
         self.items = Semaphore(0)
+        self.consumed = 0
+        self.produced = 0
 
 def producer(shared):
     while(not shared.finished):
         shared.free.wait()
         shared.mutex.lock()
         sleep(randint(1, 10) / 100)
+        shared.produced +=1
         shared.mutex.unlock()
         shared.items.signal()
     pass
@@ -23,6 +26,7 @@ def consumer(shared):
         shared.items.wait()
         shared.mutex.lock()
         sleep(randint(1, 10) / 100)
+        shared.consumed +=1
         shared.mutex.unlock()
         sleep(randint(1, 10) / 10)
     pass
