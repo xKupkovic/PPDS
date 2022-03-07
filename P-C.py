@@ -19,6 +19,12 @@ def producer():
     pass
 
 def consumer():
+    while(not shared.finished):
+        shared.items.wait()
+        shared.mutex.lock()
+        sleep(randint(1, 10) / 100)
+        shared.mutex.unlock()
+        sleep(randint(1, 10) / 10)
     pass
 
 s = Shared(10)
