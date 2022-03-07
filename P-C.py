@@ -10,6 +10,13 @@ class Shared:
         self.items = Semaphore(0)
 
 def producer():
+        shared.free.wait()
+        if shared.finished:
+            break
+        shared.mutex.lock()
+        sleep(randint(1, 10) / 100)
+        shared.mutex.unlock()
+        shared.items.signal()
     pass
 
 def consumer():
