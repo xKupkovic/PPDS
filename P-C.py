@@ -32,7 +32,8 @@ def consumer(shared):
     pass
 
 def main_loop():
-    average_times = []
+    produced = []
+    consumed = []
     for i in range(10):
         s = Shared(10)
         c = [Thread(consumer, s) for _ in range(2)]
@@ -40,6 +41,12 @@ def main_loop():
         [t.join() for t in c+p]
         sleep(5)
         s.finished = True
+        produced.add(s.produced)
+        consumed.add(s.consumed)
+        s.free.signal(100)
+        s.items.signal(100)
+    print(produced)
+    print(consumed)
 
 main_loop()     
         
