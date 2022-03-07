@@ -37,6 +37,6 @@ def main_loop():
         sleep(5)
         s.finished = True
 
-        
+main_loop()     
         
 
