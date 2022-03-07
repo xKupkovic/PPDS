@@ -13,6 +13,7 @@ class Shared:
 
 def producer(shared):
     while(not shared.finished):
+        sleep(randint(1, 10) / 10)
         shared.free.wait()
         shared.mutex.lock()
         sleep(randint(1, 10) / 100)
@@ -35,16 +36,17 @@ def main_loop():
     produced = []
     consumed = []
     for i in range(10):
+        print(i)
         s = Shared(10)
-        c = [Thread(consumer, s) for _ in range(2)]
-        p = [Thread(producer, s) for _ in range(2)]
-        [t.join() for t in c+p]
-        sleep(5)
+        c = [Thread(consumer, s) for j in range(2)]
+        p = [Thread(producer, s) for j in range(2)]
+        sleep(1)
         s.finished = True
-        produced.add(s.produced)
-        consumed.add(s.consumed)
+        produced.append(s.produced)
+        consumed.append(s.consumed)
         s.free.signal(100)
         s.items.signal(100)
+        [t.join() for t in c+p]
     print(produced)
     print(consumed)
 
