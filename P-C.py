@@ -15,4 +15,8 @@ def producer():
 def consumer():
     pass
 
+s = Shared(10)
+c = [Thread(consumer, s) for _ in range(5)]
+p = [Thread(producer, s) for _ in range(2)]
 
+[t.join() for t in c+p]
