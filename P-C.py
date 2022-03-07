@@ -27,8 +27,16 @@ def consumer(shared):
         sleep(randint(1, 10) / 10)
     pass
 
-s = Shared(10)
-c = [Thread(consumer, s) for _ in range(2)]
-p = [Thread(producer, s) for _ in range(2)]
+def main_loop():
+    average_times = []
+    for i in range(10):
+        s = Shared(10)
+        c = [Thread(consumer, s) for _ in range(2)]
+        p = [Thread(producer, s) for _ in range(2)]
+        [t.join() for t in c+p]
+        sleep(5)
+        s.finished = True
 
-[t.join() for t in c+p]
+        
+        
+
