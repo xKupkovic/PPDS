@@ -57,7 +57,9 @@ def sensor(sensor_id,sensor_type, shared):
         else:
             write_duration = randint(20, 25) / 1000
 
-        print(f'cidlo {sensor_id}:  pocet_zapisujucich_cidiel={sensor_counter}, trvanie_zapisu={write_duration}\n')
+        print('cidlo {:.2f}:  pocet_zapisujucich_cidiel={:.2f}, trvanie_zapisu={:.3f}\n'.format(sensor_id,
+                                                                                                sensor_counter,
+                                                                                                write_duration))
         sleep(write_duration)
         shared.vd.signal()
         shared.ls_sensor.unlock(shared.ad)
