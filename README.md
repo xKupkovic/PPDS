@@ -38,4 +38,18 @@ for monitor in all_monitor_threads:
         monitor_read_data()
         monitor_signal()      
    
-```     
+```   
+
+# 4. Program
+
+We created program implementing pseudocode. 
+It has sensor function and monitor function and in sensor function there are 2 types of sensors that changes
+write data duration.
+
+# 5. Output
+
+Program outputs all information in provided formats:
+
+> 'cidlo "%02d": pocet_zapisujucich_cidiel=%02d, trvanie_zapisu=%03d\n'
+> 
+> 'monit "%02d": pocet_citajucich_monitorov=%02d, trvanie_citania=%03d\n'
