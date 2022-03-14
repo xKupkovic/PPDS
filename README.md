@@ -12,7 +12,7 @@ For each problem we mapped different synchronization methods.
 
 - data writing will be handled by LightSwitch
 - monitor update by Turnstile
-- data validation by Barrier
+- data validation by Event
 
 # 3. PseudoCode
 
