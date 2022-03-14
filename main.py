@@ -64,3 +64,11 @@ def sensor(sensor_id,sensor_type, shared):
         shared.vd.signal()
         shared.ls_sensor.unlock(shared.ad)
         sleep(randint(50, 60) / 1000)
+
+shared = SharedData()
+monitors = [Thread(monitor, i,0, shared) for i in range(2)]
+monitors.append(Thread(monitor, 2, 1, shared))
+sensors = [Thread(sensor, j, shared) for j in range(8)]
+
+for thread in monitors + sensors:
+    thread.join()
