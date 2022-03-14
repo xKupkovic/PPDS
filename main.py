@@ -1,5 +1,5 @@
 from random import randint
-from time import sleep
+from time import sleep,time
 from fei.ppds import Thread, Semaphore, print, Event, Mutex
 
 class SharedData:
@@ -29,3 +29,17 @@ class LS:
             sem.signal()
 
         self.mutex.unlock()
+
+def monitor(monitor_id , shared):
+    shared.valid_data.wait()
+    while True:
+        sleep(randint(40, 50)/1000)
+        start_time = time()
+        shared.turnstile.wait()
+        monitor_counter = shared.ls_monitor.lock(shared.access_data)
+        shared.turnstile.signal()
+        read_time = time() - start_time
+        print('monit: {:.2f},    pocet_citajucich_monitorov={:.2f}, trvanie_citania{:.3f}\n'.format(monitor_id,
+                                                                                                    monitor_counter,
+                                                                                                    read_time))
+        shared.ls_monitor.unlock(shared.access_data)
