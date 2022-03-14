@@ -6,6 +6,8 @@ class SharedData:
     def __init__(self):
         self.ad = Semaphore(1)
         self.ts = Semaphore(1)
+        self.ls_monitor = LS()
+        self.ls_sensor = LS()
         self.vd = Event()
 
 class LS:
@@ -43,3 +45,21 @@ def monitor(monitor_id , shared):
                                                                                                     monitor_counter,
                                                                                                     read_time))
         shared.ls_monitor.unlock(shared.access_data)
+
+def sensor(sensor_id,sensor_type, shared):
+    while True:
+        shared.ts.wait()
+        shared.ts.signal()
+
+        sensor_counter = shared.ls_sensor.lock(shared.ad)
+        write_duration = 0
+        if sensor_type == 0:
+            write_duration = randint(10, 20) / 1000
+        else:
+            write_duration = randint(20, 25) / 1000
+
+        print(f'cidlo {sensor_id}:  pocet_zapisujucich_cidiel={sensor_counter}, trvanie_zapisu={write_duration}\n')
+        sleep(write_duration)
+        shared.vd.signal()
+        shared.ls_sensor.unlock(shared.ad)
+        sleep(randint(50, 60) / 1000)
