@@ -1,3 +1,4 @@
+import math
 from random import randint
 from time import sleep,time
 from fei.ppds import Thread, Semaphore, print, Event, Mutex
@@ -26,24 +27,25 @@ class LS:
 
     def unlock(self, sem):
         self.m.lock()
-        self.counter -= 1
-        if self.counter == 0:
+        self.c -= 1
+        if self.c == 0:
             sem.signal()
 
-        self.mutex.unlock()
+        self.m.unlock()
 
 def monitor(monitor_id , shared):
-    shared.valid_data.wait()
+    shared.vd.wait()
     while True:
         read_duration = randint(40, 50)/1000
         sleep(read_duration)
-        shared.turnstile.wait()
-        monitor_counter = shared.ls_monitor.lock(shared.access_data)
-        shared.turnstile.signal()
-        print('monit: {:.2f},    pocet_citajucich_monitorov={:.2f}, trvanie_citania{:.3f}\n'.format(monitor_id,
+        shared.ts.wait()
+        monitor_counter = shared.ls_monitor.lock(shared.ad)
+        shared.ts.signal()
+        print('monit: {:2d},    pocet_citajucich_monitorov={:2d}, trvanie_citania{:3d}\n'.format(monitor_id,
                                                                                                     monitor_counter,
-                                                                                                    read_duration))
-        shared.ls_monitor.unlock(shared.access_data)
+                                                                                                    math.floor(
+                                                                                                        read_duration*1000)))
+        shared.ls_monitor.unlock(shared.ad)
 
 def sensor(sensor_id,sensor_type, shared):
     while True:
@@ -57,18 +59,18 @@ def sensor(sensor_id,sensor_type, shared):
         else:
             write_duration = randint(20, 25) / 1000
 
-        print('cidlo {:.2f}:  pocet_zapisujucich_cidiel={:.2f}, trvanie_zapisu={:.3f}\n'.format(sensor_id,
-                                                                                                sensor_counter,
-                                                                                                write_duration))
+        print('cidlo {:2d}:  pocet_zapisujucich_cidiel={:2d}, trvanie_zapisu={:3d}\n'.format(sensor_id,
+                                                                                             sensor_counter,
+                                                                                             math.floor(write_duration*1000)))
         sleep(write_duration)
         shared.vd.signal()
         shared.ls_sensor.unlock(shared.ad)
         sleep(randint(50, 60) / 1000)
 
 shared = SharedData()
-monitors = [Thread(monitor, i,0, shared) for i in range(2)]
-monitors.append(Thread(monitor, 2, 1, shared))
-sensors = [Thread(sensor, j, shared) for j in range(8)]
+sensors = [Thread(sensor, i, 0, shared) for i in range(2)]
+sensors.append(Thread(sensor, 2, 1, shared))
+monitors = [Thread(monitor, j, shared) for j in range(8)]
 
 for thread in monitors + sensors:
     thread.join()
