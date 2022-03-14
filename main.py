@@ -35,15 +35,14 @@ class LS:
 def monitor(monitor_id , shared):
     shared.valid_data.wait()
     while True:
-        sleep(randint(40, 50)/1000)
-        start_time = time()
+        read_duration = randint(40, 50)/1000
+        sleep(read_duration)
         shared.turnstile.wait()
         monitor_counter = shared.ls_monitor.lock(shared.access_data)
         shared.turnstile.signal()
-        read_time = time() - start_time
         print('monit: {:.2f},    pocet_citajucich_monitorov={:.2f}, trvanie_citania{:.3f}\n'.format(monitor_id,
                                                                                                     monitor_counter,
-                                                                                                    read_time))
+                                                                                                    read_duration))
         shared.ls_monitor.unlock(shared.access_data)
 
 def sensor(sensor_id,sensor_type, shared):
