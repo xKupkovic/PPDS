@@ -57,7 +57,22 @@ class SimpleBarrier:
         self.barrier.wait()
 
 def savage(i, shared):
-    pass
+    """
+        Function simulate savages eating from pot, it waits for it to get filled by cooks when empty
+        :param i: identifier for savage
+        :param shared: shared data for threads
+        :return: NONE
+        """
+    sleep(randint(1, 100) / 100)
+    while True:
+        shared.mutex.lock()
+        if shared.servings == 0:
+            shared.empty_pot.signal(C)
+            shared.full_pot.wait()
+        print(f'savage {i}: take from pot')
+        shared.servings -= 1
+        shared.mutex.unlock()
+        sleep(randint(20, 50) / 100)
 
 def cook(i,shared):
     pass
