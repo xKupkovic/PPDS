@@ -56,6 +56,11 @@ class SimpleBarrier:
         self.mutex.unlock()
         self.barrier.wait()
 
+def savage(i, shared):
+    pass
+
+def cook(i,shared):
+    pass
 
 def main():
     pass
