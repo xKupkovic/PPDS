@@ -13,11 +13,11 @@ from time import sleep
 from random import randint
 from fei.ppds import Thread, Mutex, Semaphore, print
 
-#Number of savages
+# Number of savages
 N = 10
-#Number of meals
+# Number of meals
 M = 3
-#Number of cooks
+# Number of cooks
 C = 5
 
 
@@ -32,6 +32,7 @@ class Shared:
         self.empty_pot = Semaphore(0)
         self.full_pot = Semaphore(0)
         self.barrier = SimpleBarrier(C)
+
 
 class SimpleBarrier:
     def __init__(self, n):
@@ -67,6 +68,7 @@ class SimpleBarrier:
         self.mutex.unlock()
         self.barrier.wait()
 
+
 def savage(i, shared):
     """
         Function simulate savages eating from pot, it waits for it to get filled by cooks when empty
@@ -84,6 +86,7 @@ def savage(i, shared):
         shared.servings -= 1
         shared.mutex.unlock()
         sleep(randint(20, 50) / 100)
+
 
 def fill_pot(shared):
     """
