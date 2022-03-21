@@ -74,8 +74,29 @@ def savage(i, shared):
         shared.mutex.unlock()
         sleep(randint(20, 50) / 100)
 
-def cook(i,shared):
-    pass
+def fill_pot(shared):
+    """
+    Sets servings in shared data and signals full pot
+    :param shared: shared data for threads
+    :return: None
+    """
+    shared.servings = M
+    shared.full_pot.signal()
+
+
+def cook(i, shared):
+    """
+    Waits until pot is empty, after that cooks servings until maximum is reached, after it signals savages
+    :param i: identifier for cook
+    :param shared: shared data fro threads
+    :return: NONE
+    """
+    while True:
+        shared.empty_pot.wait()
+        sleep(randint(50, 200) / 100)
+        shared.barrier.wait(callback=fill_pot, callback_params=[shared], each="cook {} is cooking".format(i),
+                            last="cook {} finished cooking".format(i))
+
 
 def main():
     """
