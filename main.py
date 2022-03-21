@@ -63,7 +63,19 @@ def cook(i,shared):
     pass
 
 def main():
-    pass
+    """
+        Main function that initalizes data and threads and run them.
+        :return: NONE
+        """
+    shared = Shared(0)
+    threads = []
+    for i in range(N):
+        threads.append(Thread(savage, i, shared))
+    for j in range(C):
+        threads.append(Thread(cook, j, shared))
+
+    for t in threads:
+        t.join()
 
 
 if __name__ == '__main__':
