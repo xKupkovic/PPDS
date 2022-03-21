@@ -2,6 +2,14 @@ from time import sleep
 from random import randint
 from fei.ppds import Thread, Mutex, Semaphore, print
 
+#Number of savages
+N = 10
+#Number of meals
+M = 3
+#Number of cooks
+C = 5
+
+
 class Shared:
     def __init__(self, m):
         """
