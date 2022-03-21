@@ -39,3 +39,17 @@ Print function is called:
 - For each savage start eating
 
 Print calls in program are proof that it works.
+
+# 4. Program description
+
+- class ```Shared```:
+  - Shared data for threads
+- class ```SimpleBarrier```:
+  - Simple barrier used to wait for all cooks to finish
+- function ```savage()```
+  - Function simulate savages eating from pot, it waits for it to get filled by cooks when empty
+- function ```cook()```
+  - Waits until pot is empty, after that cooks servings until maximum is reached, after it signals savages
+- function ```fill_pot()```
+  - Sets servings in shared data and signals full pot
+  - Called from SimpleBarrier after overflow
