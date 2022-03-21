@@ -1,5 +1,15 @@
 # PPDS
 
+##Dining Savages
+
+Program simulates modified sync problem of dinning savages.
+
+When savage finds out that pot is empty he wakes all the cooks. They all start cooking concurently 
+and when the meal is cooked last cook will tell it to the waiting savage.
+
+Base of program is taken from https://uim.fei.stuba.sk/i-ppds/5-cvicenie-problem-fajciarov-problem-divochov-🚬/
+
+
 # 1. Analysis
 
 - Program is composed of 2 task, where on each can be assigned multiple workers.
