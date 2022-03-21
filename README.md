@@ -30,3 +30,12 @@ while True:
                 break            
 
 ```
+
+# 3. Check 
+
+Print function is called:
+- For each cook when start cooking
+- For last cook to finish cooking
+- For each savage start eating
+
+Print calls in program are proof that it works.
