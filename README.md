@@ -1,6 +1,6 @@
 # PPDS
 
-##Dining Savages
+## Dining Savages
 
 Program simulates modified sync problem of dinning savages.
 
