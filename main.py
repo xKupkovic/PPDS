@@ -2,6 +2,17 @@ from time import sleep
 from random import randint
 from fei.ppds import Thread, Mutex, Semaphore, print
 
+class Shared:
+    def __init__(self, m):
+        """
+        Shared data for threads
+        :param m: number of meals
+        """
+        self.servings = m
+        self.mutex = Mutex()
+        self.empty_pot = Semaphore(0)
+        self.full_pot = Semaphore(0)
+        self.barrier = SimpleBarrier(0)
 
 class SimpleBarrier:
     def __init__(self, n):
