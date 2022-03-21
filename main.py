@@ -20,7 +20,7 @@ class Shared:
         self.mutex = Mutex()
         self.empty_pot = Semaphore(0)
         self.full_pot = Semaphore(0)
-        self.barrier = SimpleBarrier(0)
+        self.barrier = SimpleBarrier(C)
 
 class SimpleBarrier:
     def __init__(self, n):
