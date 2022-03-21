@@ -1,3 +1,14 @@
+"""
+Author: Jakub Kupkovic
+
+Date: 21.3.2021
+
+Desc:
+    - Program simulates modified sync problem of dinning savages.
+    - Base of program is taken from https://uim.fei.stuba.sk/i-ppds/5-cvicenie-problem-fajciarov-problem-divochov-🚬/
+
+"""
+
 from time import sleep
 from random import randint
 from fei.ppds import Thread, Mutex, Semaphore, print
