@@ -56,11 +56,68 @@ class SimpleBarrier:
         self.mutex.unlock()
         self.barrier.wait()
 
+def load(id):
+    """
+    Prints out when cart has been loaded
+    :param id: cart id
+    """
+    sleep(randint(10,30)/1000)
+    print("Cart {} has loaded".format(id))
+
+def run(id):
+    """
+    Prints out when cart has ran
+    :param id: cart id
+    """
+    sleep(randint(20, 80) / 1000)
+    print("Cart {} has ran".format(id))
+
+def unload(id):
+    """
+    Prints out when cart has been unloaded
+    :param id: cart id
+    """
+    sleep(randint(10, 30) / 1000)
+    print("Cart {} has unloaded".format(id))
+
+def board(id):
+    """
+    Prints out when person has boarded
+    :param id: person id
+    """
+    sleep(randint(10, 20) / 1000)
+    print("Person {} has boarded".format(id))
+
+def unboard(id):
+    """
+    Prints out when person has unboarded
+    :param id: person id
+    """
+    sleep(randint(10, 20) / 1000)
+    print("Person {} has unboarded".format(id))
 
 def cart():
+    while True:
+        #Load
+        #BoardQ signal
+        #boarded Wait
+        #Run
+        #unlaod()
+        #unboardQ signal
+        #unboarded.wait
+        pass
     pass
 
+
 def passenger():
+    while True:
+        #BoardQ wait
+        #board
+        #BoardB wait
+        #unboardQWait
+        #unboard
+        #unboardBWait
+        pass
     pass
 
 
