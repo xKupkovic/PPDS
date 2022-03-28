@@ -29,6 +29,9 @@ class Shared:
         self.unboard_queue = Semaphore(0)
         self.unboarded = SimpleBarrier(C)
         pass
+    def get_next(self,i):
+        i = (i + 1) % self.M
+        return i
 
 class SimpleBarrier:
     def __init__(self, n):
