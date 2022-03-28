@@ -16,5 +16,9 @@ Shared data contains:
  - boarded : barrier for when cart is loaded
  - unboarded : barrier for when cart is unloaded
 
+### Testing
 
+By printing out functions of when is cart loading and unloading I observed that unloading is possible only when all passengers
+unboarded from previouse and loading is possible only after cart has started running.
+Different people can board and unboard at the same time but only 5 for each at the time.
 
