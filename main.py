@@ -14,19 +14,20 @@ from fei.ppds import Thread, Mutex, Semaphore, print, Event
 
 
 class Shared:
-    def __init__(self, M):
+    def __init__(self, M, C):
         """
         Shared data for threads
         :param M: number of Trains
+        :param C: number of people
         """
         self.M = M
-        self.C = 0
+        self.C = C
         self.boarding_areas = [Semaphore(0) for i in range(M)]
         self.unloading_area = [Semaphore(0) for i in range(M)]
         self.board_queue = Semaphore(0)
-        self.boarded = Event()
+        self.boarded = SimpleBarrier(C)
         self.unboard_queue = Semaphore(0)
-        self.unboarded = Event()
+        self.unboarded = SimpleBarrier(C)
         pass
 
 class SimpleBarrier:
