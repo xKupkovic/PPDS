@@ -57,6 +57,13 @@ class SimpleBarrier:
         self.barrier.wait()
 
 
+def cart():
+    pass
+
+def passenger():
+    pass
+
+
 def main():
     """
         Main function that initalizes data and threads and run them.
