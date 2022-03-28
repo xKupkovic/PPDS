@@ -71,13 +71,19 @@ def unboard(id):
     sleep(randint(10, 20) / 1000)
     print("Person {} has unboarded".format(id))
 
-def cart():
+def cart(id,shared):
+    """
+    Simulates cart
+    :param id: cart id
+    :param shared: shared data
+    """
     while True:
+        load(id)
         #Load
         #BoardQ signal
         #boarded Wait
-        #Run
-        #unlaod()
+        run(id)
+        unload(id)
         #unboardQ signal
         #unboarded.wait
         pass
