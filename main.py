@@ -110,26 +110,29 @@ def unboard(id):
     sleep(randint(10, 20) / 1000)
     print("Person {} has unboarded".format(id))
 
-def cart(id,shared):
+def cart(id,shared,capacity):
     """
     Simulates cart
     :param id: cart id
     :param shared: shared data
     """
     while True:
+        shared.boarding_areas[id].wait()
         load(id)
-        #Load
-        #BoardQ signal
-        #boarded Wait
+        shared.board_queue.signal(capacity)
+        shared.boarded.wait()
+        shared.boarding_areas[shared.get_next(id)].signal()
         run(id)
+        shared.unloading_area[id].wait()
         unload(id)
-        #unboardQ signal
-        #unboarded.wait
+        shared.unboard_queue.signal(capacity)
+        shared.unboarded.wait()
+        shared.unloading_area[shared.get_next(id)].wait()
         pass
     pass
 
 
-def passenger(id,shared):
+def passenger(id, shared):
     while True:
         shared.board_queue.wait()
         board(id)
