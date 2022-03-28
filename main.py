@@ -131,7 +131,7 @@ def cart(id,shared,capacity):
         unload(id)
         shared.unboard_queue.signal(capacity)
         shared.unboarded.wait()
-        shared.unloading_area[shared.get_next(id)].wait()
+        shared.unloading_area[shared.get_next(id)].signal()
         pass
     pass
 
@@ -140,7 +140,7 @@ def passenger(id, shared):
     while True:
         shared.board_queue.wait()
         board(id)
-        shared.board_b(callback=shared.boarded.signal)
+        shared.board_b.wait(callback=shared.boarded.signal)
         shared.unboard_queue.wait()
         unboard(id)
         shared.unboard_b.wait(callback=shared.unboarded.signal)
@@ -153,14 +153,14 @@ def main():
         Main function that initalizes data and threads and run them.
         :return: NONE
         """
-    M,C,P = 5,20,60
+    M,C,P = 5,5,120
     shared = Shared(M,C)
     threads = []
 
     for i in range(M):
-        threads.append(Thread(cart(i,shared,C)))
+        threads.append(Thread(cart,i,shared,C))
     for i in range(P):
-        threads.append(Thread(passenger(i,shared)))
+        threads.append(Thread(passenger,i,shared))
 
     for t in threads:
         t.join()
