@@ -25,9 +25,11 @@ class Shared:
         self.boarding_areas = [Semaphore(0) for i in range(M)]
         self.unloading_area = [Semaphore(0) for i in range(M)]
         self.board_queue = Semaphore(0)
-        self.boarded = SimpleBarrier(C)
+        self.board_b = SimpleBarrier(C)
+        self.boarded = Semaphore(0)
         self.unboard_queue = Semaphore(0)
-        self.unboarded = SimpleBarrier(C)
+        self.unboard_b = SimpleBarrier(C)
+        self.unboarded = Semaphore(0)
         pass
     def get_next(self,i):
         i = (i + 1) % self.M
@@ -127,14 +129,14 @@ def cart(id,shared):
     pass
 
 
-def passenger():
+def passenger(id,shared):
     while True:
-        #BoardQ wait
-        #board
-        #BoardB wait
-        #unboardQWait
-        #unboard
-        #unboardBWait
+        shared.board_queue.wait()
+        board(id)
+        shared.board_b(callback=shared.boarded.signal)
+        shared.unboard_queue.wait()
+        unboard(id)
+        shared.unboard_b.wait(callback=shared.unboarded.signal)
         pass
     pass
 
