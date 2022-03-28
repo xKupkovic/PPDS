@@ -4,6 +4,7 @@ Author: Jakub Kupkovic
 Date: 28.3.2021
 
 Desc:
+    Program simulates problem of the rollercoaster.
 
 """
 
