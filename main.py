@@ -24,6 +24,10 @@ class Shared:
         self.C = C
         self.boarding_areas = [Semaphore(0) for i in range(M)]
         self.unloading_area = [Semaphore(0) for i in range(M)]
+
+        self.boarding_areas[0].signal()
+        self.unloading_area[0].signal()
+
         self.board_queue = Semaphore(0)
         self.board_b = SimpleBarrier(C)
         self.boarded = Semaphore(0)
@@ -149,13 +153,13 @@ def main():
         Main function that initalizes data and threads and run them.
         :return: NONE
         """
-    M,C = 5,20
+    M,C,P = 5,20,60
     shared = Shared(M,C)
     threads = []
 
     for i in range(M):
-        threads.append(Thread(cart(i,shared)))
-    for i in range(C):
+        threads.append(Thread(cart(i,shared,C)))
+    for i in range(P):
         threads.append(Thread(passenger(i,shared)))
 
     for t in threads:
