@@ -137,6 +137,11 @@ def cart(id,shared,capacity):
 
 
 def passenger(id, shared):
+    """
+    Simulates function of passenger
+    :param id: id of passenger
+    :param shared: shared data of threads
+    """
     while True:
         shared.board_queue.wait()
         board(id)
