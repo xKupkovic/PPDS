@@ -10,14 +10,23 @@ Desc:
 
 from time import sleep
 from random import randint
-from fei.ppds import Thread, Mutex, Semaphore, print
+from fei.ppds import Thread, Mutex, Semaphore, print, Event
 
 
 class Shared:
-    def __init__(self):
+    def __init__(self, M):
         """
         Shared data for threads
+        :param M: number of Trains
         """
+        self.M = M
+        self.C = 0
+        self.boarding_areas = [Semaphore(0) for i in range(M)]
+        self.unloading_area = [Semaphore(0) for i in range(M)]
+        self.board_queue = Semaphore(0)
+        self.boarded = Event()
+        self.unboard_queue = Semaphore(0)
+        self.unboarded = Event()
         pass
 
 
