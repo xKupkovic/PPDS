@@ -144,9 +144,14 @@ def main():
         Main function that initalizes data and threads and run them.
         :return: NONE
         """
-    shared = Shared(0)
+    M,C = 5,20
+    shared = Shared(M,C)
     threads = []
 
+    for i in range(M):
+        threads.append(Thread(cart(i,shared)))
+    for i in range(C):
+        threads.append(Thread(passenger(i,shared)))
 
     for t in threads:
         t.join()
