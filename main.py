@@ -14,6 +14,7 @@ def generator(count,i):
     """
     for n in range(1, count+1):
         yield "Task : {} returns {}".format(i,n)
+    yield None
 
 def scheduler(sizes):
     """
@@ -28,7 +29,7 @@ def scheduler(sizes):
     while True:
         for gen in gens:
             variable = next(gen)
-            if(variable != None):
+            if variable is None:
                 print(variable)
             else:
                 return
