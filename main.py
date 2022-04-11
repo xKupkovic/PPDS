@@ -17,14 +17,21 @@ def generator(count,i):
 
 def scheduler(sizes):
     """
-    create generators with set max yields
+    runs generators with max yields
     :param sizes: max yields of each generator
-    :return: generators
+    :return: NONE
     """
     gens = []
     for i, size in enumerate(sizes):
         gens.append(generator(size, i))
-    return gens
+
+    while True:
+        for gen in gens:
+            variable = next(gen)
+            if(variable != None):
+                print(variable)
+            else:
+                return
 
 
 def main():
