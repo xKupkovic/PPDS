@@ -29,7 +29,7 @@ def scheduler(sizes):
     while True:
         for gen in gens:
             variable = next(gen)
-            if variable is None:
+            if variable is not None:
                 print(variable)
             else:
                 return
