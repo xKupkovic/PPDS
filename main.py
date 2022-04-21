@@ -5,7 +5,10 @@ Date: 21.4.2022
 Description: Program runs sync and async tasks and compares speeds
 """
 
-from time import sleep
+from time import sleep,time
+from asyncio import Queue as aq
+from asyncio import gather
+from queue import Queue as sq
 
 async def async_task(name,work_queue):
     """
@@ -35,6 +38,21 @@ def sync_task(name,work_queue):
     pass
 
 def main():
+
+    times = [0.5, 4, 2, 3, 8]
+    async_q = aq()
+    sync_q = sq()
+    for time in times:
+        async_q.put(time)
+        sync_q.put(time)
+
+    print("Starting async queue")
+    #RUN async
+    print(f"Async tasks finished with time {0}")
+
+    print("Starting sync queue")
+    #RUN sync
+    print(f"Sync tasks finished with time {0}")
     pass
 
 
