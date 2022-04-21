@@ -4,7 +4,7 @@ Date: 21.4.2022
 
 Description: Program runs sync and async tasks and compares speeds
 """
-
+import asyncio
 from time import sleep,time
 from asyncio import Queue as aq
 from asyncio import gather
@@ -37,6 +37,9 @@ def sync_task(name,work_queue):
         yield
     pass
 
+async def async_handler(work_queue):
+    await (async_task("One",work_queue),async_task("Two",work_queue))
+
 def main():
 
     times = [0.5, 4, 2, 3, 8]
@@ -48,7 +51,7 @@ def main():
 
     start_time = time()
     print("Starting async queue")
-    #RUN async
+    asyncio.run(async_handler(async_q))
     print(f"Async tasks finished with time {time()-start_time}")
 
     start_time = time()
