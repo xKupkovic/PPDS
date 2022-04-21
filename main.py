@@ -17,9 +17,9 @@ async def async_task(name,work_queue):
     :param work_queue: tasks to do
     """
     while not work_queue.empty():
-        time = work_queue.get()
+        t = work_queue.get()
         print(f"Async task {name} starting")
-        sleep(time)
+        sleep(t)
         print(f"Async task {name} finished")
     pass
 
@@ -30,9 +30,9 @@ def sync_task(name,work_queue):
     :param work_queue: tasks to do
     """
     while not work_queue.empty():
-        time = work_queue.get()
+        t = work_queue.get()
         print(f"Synchronous task {name} starting")
-        sleep(time)
+        sleep(t)
         print(f"Synchronous task {name} finished")
         yield
     pass
@@ -42,9 +42,9 @@ def main():
     times = [0.5, 4, 2, 3, 8]
     async_q = aq()
     sync_q = sq()
-    for time in times:
-        async_q.put(time)
-        sync_q.put(time)
+    for t in times:
+        async_q.put(t)
+        sync_q.put(t)
 
     print("Starting async queue")
     #RUN async
