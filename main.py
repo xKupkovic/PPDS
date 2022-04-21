@@ -10,18 +10,21 @@ from asyncio import Queue as aq
 from asyncio import gather
 from queue import Queue as sq
 
-async def async_task(name,work_queue):
+
+async def async_task(name, work_queue):
     """
     Async task that sleeps for given time
     :param name: name of worker
     :param work_queue: tasks to do
     """
     while not work_queue.empty():
-        t = work_queue.get()
+        t = await work_queue.get()
         print(f"Async task {name} starting")
-        sleep(t)
+        await asyncio.sleep(t)
         print(f"Async task {name} finished")
+
     pass
+
 
 def sync_task(name,work_queue):
     """
@@ -37,6 +40,7 @@ def sync_task(name,work_queue):
         yield
     pass
 
+
 async def async_handler(times):
     """
     Function handles async tasks
@@ -45,7 +49,11 @@ async def async_handler(times):
     async_q = aq()
     for t in times:
         await async_q.put(t)
-    await gather(async_task("One",async_q),async_task("Two",async_q))
+    await gather(
+        async_task("One", async_q),
+        async_task("Two", async_q)
+    )
+
 
 def sync_handler(times):
     """
@@ -55,7 +63,10 @@ def sync_handler(times):
     sync_q = sq()
     for t in times:
         sync_q.put(t)
-    tasks = [sync_task("One", sync_q), sync_task("B", sync_q)]
+    tasks = [
+        sync_task("One", sync_q),
+        sync_task("Two", sync_q)
+    ]
     done = False
     while not done:
         for t in tasks:
@@ -66,10 +77,10 @@ def sync_handler(times):
             if len(tasks) == 0:
                 done = True
 
+
 def main():
 
     times = [0.5, 4, 2, 3, 8]
-
 
     start_time = time()
     print("Starting async queue")
