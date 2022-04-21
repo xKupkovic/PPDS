@@ -47,6 +47,25 @@ async def async_handler(times):
         await async_q.put(t)
     await gather(async_task("One",async_q),async_task("Two",async_q))
 
+def sync_handler(times):
+    """
+    Handles generators of sync tasks
+    :param times: execution times
+    """
+    sync_q = sq()
+    for t in times:
+        sync_q.put(t)
+    tasks = [sync_task("One", sync_q), sync_task("B", sync_q)]
+    done = False
+    while not done:
+        for t in tasks:
+            try:
+                next(t)
+            except StopIteration:
+                tasks.remove(t)
+            if len(tasks) == 0:
+                done = True
+
 def main():
 
     times = [0.5, 4, 2, 3, 8]
@@ -59,7 +78,7 @@ def main():
 
     start_time = time()
     print("Starting sync queue")
-    #RUN sync
+    sync_handler(times)
     print(f"Sync tasks finished with time {time()-start_time}")
     pass
 
