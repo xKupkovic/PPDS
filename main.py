@@ -35,9 +35,8 @@ def sync_task(name,work_queue):
     while not work_queue.empty():
         t = work_queue.get()
         print(f"Synchronous task {name} starting")
-        sleep(t)
+        yield sleep(t)
         print(f"Synchronous task {name} finished")
-        yield
     pass
 
 
