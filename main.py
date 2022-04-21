@@ -37,21 +37,24 @@ def sync_task(name,work_queue):
         yield
     pass
 
-async def async_handler(work_queue):
-    await (async_task("One",work_queue),async_task("Two",work_queue))
+async def async_handler(times):
+    """
+    Function handles async tasks
+    :param times: execution times
+    """
+    async_q = aq()
+    for t in times:
+        await async_q.put(t)
+    await gather(async_task("One",async_q),async_task("Two",async_q))
 
 def main():
 
     times = [0.5, 4, 2, 3, 8]
-    async_q = aq()
-    sync_q = sq()
-    for t in times:
-        async_q.put(t)
-        sync_q.put(t)
+
 
     start_time = time()
     print("Starting async queue")
-    asyncio.run(async_handler(async_q))
+    asyncio.run(async_handler(times))
     print(f"Async tasks finished with time {time()-start_time}")
 
     start_time = time()
