@@ -46,13 +46,15 @@ def main():
         async_q.put(t)
         sync_q.put(t)
 
+    start_time = time()
     print("Starting async queue")
     #RUN async
-    print(f"Async tasks finished with time {0}")
+    print(f"Async tasks finished with time {time()-start_time}")
 
+    start_time = time()
     print("Starting sync queue")
     #RUN sync
-    print(f"Sync tasks finished with time {0}")
+    print(f"Sync tasks finished with time {time()-start_time}")
     pass
 
 
