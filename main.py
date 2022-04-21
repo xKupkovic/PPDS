@@ -26,6 +26,12 @@ def sync_task(name,work_queue):
     :param name: name of worker
     :param work_queue: tasks to do
     """
+    while not work_queue.empty():
+        time = work_queue.get()
+        print(f"Synchronous task {name} starting")
+        sleep(time)
+        print(f"Synchronous task {name} finished")
+        yield
     pass
 
 def main():
