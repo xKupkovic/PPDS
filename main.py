@@ -68,7 +68,7 @@ def main():
     result_vectors = numpy.full((m,2), -1, dtype=int)
 
     # Threads:256
-    threads_per_block = (16, 16, 2)
+    threads_per_block = (16, 16, 1)
     vector_num = 2 ** n
     print(vector_num)
     blocks_per_grid = (math.ceil(n / threads_per_block[0]),
