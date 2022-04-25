@@ -31,7 +31,7 @@ def my_kernel_3D(io_array, expected_vector, cached_matrix, result_vectors):
     tz = cuda.threadIdx.z
     z = tz + cuda.blockDim.z * cuda.blockIdx.z
     cached_matrix[y][x] = x+y
-    if x < n and y < m:
+    if x < n and y < m and tz == 0:
         cached_matrix[y][x] = io_array[y][x] ^ ((z >> y) & 1)
 
     cuda.syncthreads()
