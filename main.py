@@ -4,8 +4,19 @@ Date: 25.4.2022
 
 Description: Bruteforce search for matrix solution
 """
+import random
+
 from numba import cuda
 import math
+
+
+def random_bit():
+    """
+    Returns random bit
+    :return: random bit
+    """
+    return random.randint(0, 1)
+
 
 def generate_random_bit_matrix(n,m):
     """
@@ -14,7 +25,7 @@ def generate_random_bit_matrix(n,m):
     :param m: number of rows
     :return: 2d (n*m) array of bits
     """
-    return [[i for i in range(n)] for j in range(m)]
+    return [[random_bit() for i in range(n)] for j in range(m)]
 
 
 def main():
