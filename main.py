@@ -102,8 +102,8 @@ def main():
                                                      d_expected,
                                                      d_results)
 
-    print(d_cache.copy_to_host())
-    print(result_vectors[8][0])
+    print(d_results.copy_to_host())
+
     pass
 
 
