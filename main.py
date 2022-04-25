@@ -26,7 +26,7 @@ def my_kernel_3D(io_array, expected_vector, cached_matrix, result_vectors):
     # sA = cuda.shared.array(shape=(TPB, TPB), dtype=b1)
     x = cuda.threadIdx.x
     y = cuda.threadIdx.y
-    n, m = io_array.shape
+    m,n = io_array.shape
 
     tz = cuda.threadIdx.z
     z = tz + cuda.blockDim.z * cuda.blockIdx.z
