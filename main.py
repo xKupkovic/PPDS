@@ -11,23 +11,6 @@ from numba import cuda, b1
 import math
 
 
-def random_bit():
-    """
-    Returns random bit
-    :return: random bit
-    """
-    return random.randint(0, 1)
-
-
-def generate_random_bit_matrix(n, m):
-    """
-    Generates random bit matrix
-    :param n: number of columns
-    :param m: number of rows
-    :return: 2d (n*m) array of bits
-    """
-    return [[random_bit() for i in range(n)] for j in range(m)]
-
 
 # TPB = 64
 @cuda.jit
